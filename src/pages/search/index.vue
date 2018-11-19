@@ -1,5 +1,6 @@
 <template>
   <div id="search-container">
+    search
   </div>
 </template>
 

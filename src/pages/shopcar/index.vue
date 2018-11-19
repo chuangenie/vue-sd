@@ -1,5 +1,6 @@
 <template>
   <div id="shopcar-container">
+    shopcar
   </div>
 </template>
 

@@ -1,5 +1,6 @@
 <template>
   <div id="member-container">
+    member
   </div>
 </template>
 
