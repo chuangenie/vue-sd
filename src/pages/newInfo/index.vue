@@ -7,11 +7,15 @@
         </div>
         <hr>
         <div class="content" v-html="newInfo.content"></div>
+
+        <comment :id="id"></comment>
+        
     </div>
 </template>
 
 <script>
 
+    import comment from '../../components/comment/'
     import { Toast } from 'mint-ui'
 
     export default {
@@ -36,6 +40,9 @@
                     }
                 })
             }
+        },
+        components: {
+            comment
         }
     }
 </script>
