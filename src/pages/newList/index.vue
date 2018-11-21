@@ -2,16 +2,16 @@
     <div class="new-list-container">
         <ul class="mui-table-view">
 			<li class="mui-table-view-cell mui-media" v-for="item in newList" :key="item.id">
-				<a href="javascript:;">
-					<img class="mui-media-object mui-pull-left" src="">
+				<router-link :to="'/home/newInfo/' + item.id">
+					<img class="mui-media-object mui-pull-left" :src="item.img_url">
 					<div class="mui-media-body">
-						<h4>{{ item.title }}</h4>
+						<h4 class="title mui-ellipsis">{{ item.title }}</h4>
 						<p class='mui-ellipsis'>
                             <span class="ctime mui-pull-left">发表时间: {{ item.add_time }}</span>
                             <span class="ctime mui-pull-right">点击: {{ item.click }} 次</span>
                         </p>
 					</div>
-				</a>
+				</router-link>
 			</li>
 		</ul>
     </div>

@@ -1,0 +1,66 @@
+<template>
+    <div class="new-info-container">
+        <div class="title">{{ newInfo.title }}</div>
+        <div class="subtitle">
+        <span class="ctime">发表时间: {{ newInfo.add_time}}</span>
+        <span class="click">点击: {{ newInfo.click }}次</span>
+        </div>
+        <hr>
+        <div class="content" v-html="newInfo.content"></div>
+    </div>
+</template>
+
+<script>
+
+    import { Toast } from 'mint-ui'
+
+    export default {
+        data() {
+            return {
+                id: this.$route.params.id,
+                newInfo: {}
+            }
+        },
+        created() {
+            this.getNewInfo()
+        },
+        methods: {
+            getNewInfo() {
+                // console.log(this)
+                this.$http.get("api/getnew/" + this.id).then(result => {
+                    console.log(result)
+                    if ( result.body.status === 0 ) {
+                        this.newInfo = result.body.message[0]
+                    } else {
+                        Toast('新闻详情获取失败!请重试!')
+                    }
+                })
+            }
+        }
+    }
+</script>
+
+<style lang = "less">
+.new-info-container {
+  padding: 0 10px;
+  .title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #26a2ff;
+    text-align: center;
+    margin: 15px 0;
+  }
+  .subtitle {
+    font-size: 12px;
+    color: #26a2ff;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5px;
+  }
+  .content {
+    img {
+      width: 100%;
+    }
+  }
+}
+</style>

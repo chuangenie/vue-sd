@@ -6,6 +6,7 @@ import memberComponent from '../pages/member/'
 import searchComponent from '../pages/search/'
 import shopcarComponent from '../pages/shopcar/'
 import newListComponent from '../pages/newList/'
+import newInfoComponent from '../pages/newInfo/'
 
 Vue.use(Router)
 
@@ -16,7 +17,8 @@ export default new Router({
         { path: '/member', component: memberComponent },
         { path: '/search', component: searchComponent },
         { path: '/shopcar', component: shopcarComponent },
-        { path: '/home/newList', component: newListComponent }
+        { path: '/home/newList', component: newListComponent },
+        { path: '/home/newInfo/:id', component: newInfoComponent }
     ],
     linkActiveClass: 'mui-active'
 })
