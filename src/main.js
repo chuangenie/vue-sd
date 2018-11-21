@@ -11,6 +11,9 @@ Vue.use(VueResource)
 
 Vue.config.productionTip = false
 
+// 配置vue-resource的请求根域名
+Vue.http.options.root = 'http://www.lovegf.cn:8899/'
+
 // 按需导入需要的mint-ui组件
 import { Header, Swipe, SwipeItem } from 'mint-ui'
 //注册组件
