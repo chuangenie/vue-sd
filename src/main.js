@@ -10,6 +10,11 @@ import VueResource from 'vue-resource'
 // 注册vue-resource
 Vue.use(VueResource)
 
+// 导入 vue-lazyload
+import VueLazyload from 'vue-lazyload'
+// 注册 vue-lazyload
+Vue.use(VueLazyload)
+
 Vue.config.productionTip = false
 
 // 配置vue-resource的请求根域名
@@ -18,12 +23,13 @@ Vue.http.options.root = 'http://www.lovegf.cn:8899/'
 Vue.http.options.emulateJSON = true;
 
 // 按需导入需要的mint-ui组件
-import { Header, Swipe, SwipeItem, Button } from 'mint-ui'
+import { Header, Swipe, SwipeItem, Button, Lazyload } from 'mint-ui'
 //注册组件
 Vue.component(Header.name, Header)
 Vue.component(Swipe.name, Swipe)
 Vue.component(SwipeItem.name, SwipeItem)
 Vue.component(Button.name, Button)
+Vue.use(Lazyload)
 
 // 导入mui样式
 // import 'mint-ui/lib/style.css'
@@ -38,6 +44,8 @@ Vue.filter('dateFormat', function(dateStr, pattern = 'YYYY-MM-DD HH:mm:ss') {
     // 直接调用表示获取当前时间
     return moment(dateStr).format(pattern)
 })
+
+
 
 /* eslint-disable no-new */
 new Vue({
