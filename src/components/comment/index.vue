@@ -6,13 +6,13 @@
         <mt-button type="primary" size="large">发表评论</mt-button>
         <div class="comment-list">
         <div class="comment-item" v-for="(item, index) in commentList" :key="index">
-            <div class="comment-title">第{{index + 1}}楼&nbsp;&nbsp;用户:{{item.user_name}}&nbsp;&nbsp;发表时间:{{item.add_time}}</div>
+            <div class="comment-title">第{{index + 1}}楼&nbsp;&nbsp;用户:{{item.user_name}}&nbsp;&nbsp;发表时间:{{item.add_time | dateFormat}}</div>
             <div class="comment-content">
-                {{item.content || '此人有点懒'}}
+                {{item.content || '此人没有bb'}}
             </div>
         </div>
         </div>
-        <mt-button type="danger" size="large" plain>加载更多</mt-button>
+        <mt-button type="danger" size="large" plain @click="getMore">加载更多</mt-button>
     </div>
 </template>
 
@@ -36,11 +36,15 @@
                 this.$http.get("api/getcomments/" + this.id + "?pageindex=" + this.pageIndex).then(result => {
                     console.log(result)
                     if (result.body.status === 0) {
-                        this.commentList = result.body.message
+                        this.commentList = this.commentList.concat(result.body.message)
                     } else {
                         Toast('获取评论数据失败, 请重试 !')
                     }
                 })
+            },
+            getMore() {
+                this.pageIndex ++,
+                this.getComment()
             }
         }
     }

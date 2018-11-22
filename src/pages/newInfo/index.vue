@@ -2,7 +2,7 @@
     <div class="new-info-container">
         <div class="title">{{ newInfo.title }}</div>
         <div class="subtitle">
-        <span class="ctime">发表时间: {{ newInfo.add_time}}</span>
+        <span class="ctime">发表时间: {{ newInfo.add_time | dateFormat }}</span>
         <span class="click">点击: {{ newInfo.click }}次</span>
         </div>
         <hr>
