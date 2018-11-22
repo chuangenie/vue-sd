@@ -14,6 +14,8 @@ Vue.config.productionTip = false
 
 // 配置vue-resource的请求根域名
 Vue.http.options.root = 'http://www.lovegf.cn:8899/'
+    // 配置post请求形式
+Vue.http.options.emulateJSON = true;
 
 // 按需导入需要的mint-ui组件
 import { Header, Swipe, SwipeItem, Button } from 'mint-ui'

@@ -2,8 +2,8 @@
     <div class="comment-container">
         <h2>发表评论</h2>
         <hr>
-        <textarea placeholder="请输入您要bb的内容 ! 最多bb20字" maxlength="120"></textarea>
-        <mt-button type="primary" size="large">发表评论</mt-button>
+        <textarea placeholder="请输入您要bb的内容 ! 最多bb20字" maxlength="120" v-model="userComment"></textarea>
+        <mt-button type="primary" size="large" @click="postComment">发表评论</mt-button>
         <div class="comment-list">
         <div class="comment-item" v-for="(item, index) in commentList" :key="index">
             <div class="comment-title">第{{index + 1}}楼&nbsp;&nbsp;用户:{{item.user_name}}&nbsp;&nbsp;发表时间:{{item.add_time | dateFormat}}</div>
@@ -25,7 +25,8 @@
         data() {
             return {
                 pageIndex: 1,
-                commentList: []
+                commentList: [],
+                userComment: ""
             }
         },
         created() {
@@ -45,6 +46,19 @@
             getMore() {
                 this.pageIndex ++,
                 this.getComment()
+            },
+            postComment() {
+                this.$http.post('api/postcomment/' + this.id, { content: this.userComment }).then(result => {
+                    if (this.userComment.trim() === '') {
+                        Toast('请bb一些内容')
+                    } else if (result.body.status === 0) {
+                        Toast(result.body.message)
+                        this.pageIndex = 1
+                        this.commentList = []
+                        this.getComment()
+                        this.userComment = ''
+                    }
+                })
             }
         }
     }
