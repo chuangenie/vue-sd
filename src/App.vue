@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <!-- 头部 -->
-    <mt-header fixed title="Vue CMS"></mt-header>
+    <mt-header fixed title="Vue CMS" id="mint-header"></mt-header>
 
     <!-- 底部tabBar -->
     <nav class="mui-bar mui-bar-tab">
@@ -38,7 +38,7 @@
 </script>
 
 <style lang = "less">
-.mint-header{
+#mint-header {
   z-index: 99;
 }
 .app-container {

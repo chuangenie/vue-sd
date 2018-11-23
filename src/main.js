@@ -15,6 +15,18 @@ import VueLazyload from 'vue-lazyload'
 // 注册 vue-lazyload
 Vue.use(VueLazyload)
 
+// 安装 缩略图插件
+import VuePreview from 'vue2-preview'
+Vue.use(VuePreview)
+
+// 导入mui样式
+// import 'mint-ui/lib/style.css'
+import './lib/mui/css/mui.min.css'
+import './lib/mui/css/icons-extra.css'
+
+// 导入自己的全局样式
+import './css/common.less'
+
 Vue.config.productionTip = false
 
 // 配置vue-resource的请求根域名
@@ -30,14 +42,6 @@ Vue.component(Swipe.name, Swipe)
 Vue.component(SwipeItem.name, SwipeItem)
 Vue.component(Button.name, Button)
 Vue.use(Lazyload)
-
-// 导入mui样式
-// import 'mint-ui/lib/style.css'
-import './lib/mui/css/mui.min.css'
-import './lib/mui/css/icons-extra.css'
-
-// 导入自己的全局样式
-import './css/common.less'
 
 // 定义全局过滤器
 Vue.filter('dateFormat', function(dateStr, pattern = 'YYYY-MM-DD HH:mm:ss') {
