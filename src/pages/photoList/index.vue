@@ -3,7 +3,7 @@
         <div id="slider" class="mui-slider">
 			<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 				<div class="mui-scroll">
-					<a :class="{ 'mui-control-item':true, 'mui-active': item.id == 0 }" v-for="item in cates" :key="item.id" @click="getPhotoList(item.id)" href="#item1mobile" data-wid="tab-top-subpage-1.html">
+					<a :class="{ 'mui-control-item':true, 'mui-active': item.id == 0 }" v-for="item in cates" :key="item.id" @tap="getPhotoList(item.id)" href="#item1mobile" data-wid="tab-top-subpage-1.html">
 						{{ item.title }}
 					</a>
 				</div>

@@ -1,13 +1,7 @@
 <template>
   <div class="home-container">
     <!-- 轮播图 -->
-    <mt-swipe class="binner-container" :auto="4000">
-      <mt-swipe-item v-for="(item, index) in bannerList" :key="index">
-        <a :href="item.url">
-          <img :src="item.img">
-        </a>
-      </mt-swipe-item>
-    </mt-swipe>
+    <swiper :bannerList="bannerList" :isfull="true"></swiper>
 
     <!-- 网格导航 -->
     <ul class="mui-table-view mui-grid-view mui-grid-9">
@@ -17,7 +11,7 @@
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link to="/home/photoList">
               <img src="../../images/menu2.png" alt="">
               <div class="mui-media-body">图片分享</div></router-link></li>
-      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link to="#">
+      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link to="/home/goodsList">
               <img src="../../images/menu3.png" alt="">
               <div class="mui-media-body">商品购买</div></router-link></li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link to="#">
@@ -34,7 +28,10 @@
 </template>
 
 <script>
+
 import { Toast } from 'mint-ui'
+// 引入轮播图组件
+import swiper from '../../../src/components/swiper/index.vue'
 
 export default {
   data() {
@@ -53,6 +50,10 @@ export default {
         }
       })
     }
+  },
+  // 注册轮播图组件
+  components: {
+    swiper
   }
 }
 
