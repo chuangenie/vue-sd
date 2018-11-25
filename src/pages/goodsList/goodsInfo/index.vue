@@ -25,10 +25,10 @@
                 <p class="price">
                     市场价：<del>￥{{ goodsinfo.market_price }}</del>&nbsp;&nbsp;销售价：<span class="now_price">￥{{ goodsinfo.sell_price }}</span>
                 </p>
-                <!-- <p>购买数量：<numbox @getcount="getSelectedCount" :max="goodsinfo.stock_quantity"></numbox></p> -->
-                <p>
+                <p>购买数量：<numbox :max="goodsinfo.stock_quantity"></numbox></p>
+                <p class="top-margin">
                     <mt-button type="primary" size="small">立即购买</mt-button>
-                    <mt-button type="danger" size="small">加入购物车</mt-button>
+                    <mt-button type="danger" size="small" @click = "getBall">加入购物车</mt-button>
                     <!-- 分析： 如何实现加入购物车时候，拿到 选择的数量 
                      1. 经过分析发现： 按钮属于 goodsinfo 页面， 数字 属于 numberbox 组件 
                      2. 由于涉及到了父子组件的嵌套了，所以，无法直接在 goodsinfo 页面zhong 中获取到 选中的商品数量值
@@ -42,18 +42,18 @@
 
         <!-- 商品参数区域 -->
         <div class="mui-card">
-        <div class="mui-card-header">商品参数</div>
-        <div class="mui-card-content">
-            <div class="mui-card-content-inner">
-            <p>商品货号：{{ goodsinfo.goods_no }}</p>
-            <p>库存情况：{{ goodsinfo.stock_quantity }}件</p>
-            <p>上架时间：{{ goodsinfo.add_time | dateFormat }}</p>
+            <div class="mui-card-header">商品参数</div>
+            <div class="mui-card-content">
+                <div class="mui-card-content-inner">
+                    <p>商品货号：{{ goodsinfo.goods_no }}</p>
+                    <p>库存情况：{{ goodsinfo.stock_quantity }}件</p>
+                    <p>上架时间：{{ goodsinfo.add_time | dateFormat }}</p>
+                </div>
             </div>
-        </div>
-        <div class="mui-card-footer">
-            <mt-button type="primary" size="large" plain @click="goDesc(id)">图文介绍</mt-button>
-            <mt-button type="danger" size="large" plain @click="goComment(id)">商品评论</mt-button>
-        </div>
+            <div class="mui-card-footer">
+                <mt-button type="primary" size="large" plain @click="goDesc(id)">图文介绍</mt-button>
+                <mt-button type="danger" size="large" plain @click="goComment(id)">商品评论</mt-button>
+            </div>
         </div>
     </div>
 </template>
@@ -62,6 +62,8 @@
 
     // 引入轮播图组件
     import swiper from '../../../components/swiper/index.vue'
+    // 导入 数字选择框 组件
+    import numbox from "../../../components/numbox/numbox.vue";
 
     export default {
         data() {
@@ -70,11 +72,12 @@
                 bannerList: [],
                 goodsinfo: {},
                 ballFlag: false,
-                selectedCount: 1
+                selectedCount: 1 
             }
         },
         created() {
             this.getBanner()
+            this.getGoodsInfo()
         },
         methods: {
             getBanner() {
@@ -88,6 +91,7 @@
             getGoodsInfo() {
                 // 获取商品的信息
                 this.$http.get('api/goods/getinfo/' + this.id).then(reslut => {
+                    console.log(reslut)
                     this.goodsinfo = reslut.body.message[0]
                 })
             },
@@ -99,9 +103,8 @@
                 // 点击跳转到 评论页面
                 this.$router.push({ name: "goodscomment", params: { id } });
             },
-            addToShopCar() {
-                // 添加到购物车
-                this.ballFlag = !this.ballFlag;
+            getBall() {
+                this.ballFlag = !this.ballFlag
             },
             beforeEnter(el) {
                 el.style.transform = "translate(0, 0)";
@@ -113,10 +116,10 @@
                 // 获取 徽标 在页面中的位置
                 const badgePosition = document.getElementById("badge").getBoundingClientRect();
 
-                const x = badgePosition.left - ballPosition.left
-                const y = badgePosition.top - ballPosition.top
-
-                el.style.transform = `translate(${x}px, ${y}px)`;
+                const xDist = badgePosition.left - ballPosition.left;
+                const yDist = badgePosition.top - ballPosition.top;
+                el.style.opacity =  "1"
+                el.style.transform = `translate(${xDist}px, ${yDist}px)`;
                 el.style.transition = "all 0.5s cubic-bezier(.4,-0.3,1,.68)";
                 done();
             },
@@ -125,7 +128,8 @@
             }
         },
         components: {
-            swiper
+            swiper,
+            numbox
         }
     }
 </script>
@@ -147,14 +151,16 @@
             margin: 15px 0;
             }
         }
-
+        .top-margin {
+            margin-top: 10px;
+        }
         .ball {
             width: 15px;
             height: 15px;
             border-radius: 50%;
             background-color: red;
             position: absolute;
-            z-index: 99;
+            z-index: 999;
             top: 390px;
             left: 146px;
         }
