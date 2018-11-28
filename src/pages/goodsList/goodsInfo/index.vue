@@ -25,7 +25,7 @@
                 <p class="price">
                     市场价：<del>￥{{ goodsinfo.market_price }}</del>&nbsp;&nbsp;销售价：<span class="now_price">￥{{ goodsinfo.sell_price }}</span>
                 </p>
-                <p>购买数量：<numbox :max="goodsinfo.stock_quantity"></numbox></p>
+                <p>购买数量：<numbox @getcount="getSelectedCount" :max="goodsinfo.stock_quantity"></numbox></p>
                 <p class="top-margin">
                     <mt-button type="primary" size="small">立即购买</mt-button>
                     <mt-button type="danger" size="small" @click = "getBall">加入购物车</mt-button>
@@ -103,8 +103,18 @@
                 // 点击跳转到 评论页面
                 this.$router.push({ name: "goodscomment", params: { id } });
             },
+            // 添加到购物车
             getBall() {
                 this.ballFlag = !this.ballFlag
+                // 拼接出一个，要保存到 store 中 car 数组里的 商品信息对象
+                var goodsinfo = {
+                    id: this.id,
+                    count: this.selectedCount,
+                    price: this.goodsinfo.sell_price,
+                    selected: true
+                };
+                // 调用 store 中的 mutations 来将商品加入购物车
+                this.$store.commit("addToCar", goodsinfo);
             },
             beforeEnter(el) {
                 el.style.transform = "translate(0, 0)";
@@ -125,6 +135,11 @@
             },
             afterEnter(el) {
                 this.ballFlag = !this.ballFlag
+            },
+            getSelectedCount(count) {
+                // 当子组件把 选中的数量传递给父组件的时候，把选中的值保存到 data 上
+                this.selectedCount = count;
+                console.log("父组件拿到的数量值为： " + this.selectedCount);
             }
         },
         components: {
