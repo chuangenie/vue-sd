@@ -32,5 +32,5 @@ export default new Router({
         { path: '/home/goodsdesc/:id', component: goodsdescComponent, name: 'goodsdesc' },
         { path: '/home/goodscomment/:id', component: goodscommentComponent, name: 'goodscomment' }
     ],
-    linkActiveClass: 'mui-active'
+
 })
