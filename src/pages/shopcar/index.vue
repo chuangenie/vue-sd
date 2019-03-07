@@ -10,7 +10,7 @@
                         @change="selectedChanged(item.id, $store.getters.getGoodsSelected[item.id])"></mt-switch>
                         <img :src="item.thumb_path" alt="">
                         <div class="info">
-                            <h1>{{ item.title }}</h1>
+                            <h1>{{ item.title }}</h1> 
                             <p>
                                 <span class="price">￥{{ item.sell_price }}</span>
                                 <numbox :initcount="$store.getters.getGoodsCount[item.id]" :goodsid="item.id"></numbox>
