@@ -25,7 +25,7 @@
                 <p class="price">
                     市场价：<del>￥{{ goodsinfo.market_price }}</del>&nbsp;&nbsp;销售价：<span class="now_price">￥{{ goodsinfo.sell_price }}</span>
                 </p>
-                <p>购买数量：<numbox @getcount="getSelectedCount" :max="goodsinfo.stock_quantity"></numbox></p>
+                <p>购买数量：<numbox @getcount="getSelectedCount"></numbox></p>
                 <p class="top-margin">
                     <mt-button type="primary" size="small">立即购买</mt-button>
                     <mt-button type="danger" size="small" @click = "getBall">加入购物车</mt-button>
